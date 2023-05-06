@@ -1,6 +1,6 @@
 #ifndef WIDGET_H
 #define WIDGET_H
-// Подключаем основной библиотеки для
+// Подключаем основные библиотеки
 #include <QWidget>
 #include <QValidator>
 #include <QMessageBox>

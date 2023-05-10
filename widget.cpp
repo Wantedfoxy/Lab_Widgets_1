@@ -3,18 +3,32 @@
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::Widget)
 {
+    // Обработка исключения при неуспешном выделении памяти
+    try {
+        ui = new Ui::Widget;
+        if (ui == nullptr) {
+            throw std::bad_alloc();
+        };
+    }
+    catch (const std::bad_alloc&) {
+        QMessageBox meesageBox(QMessageBox::Information,
+                               "Возведение в квадрат.",
+                               "Ошибка: невозможно выделить память.",
+                               QMessageBox::Ok);
+        // Запускаем диалоговое окно сообщения msgBox и блокирует дальнейшее выполнение
+        // программы до тех пор, пока пользователь не закроет это окно
+        meesageBox.exec();
+    };
+
     // Создаем элементы пользовательского интерфейса, которые были размещены на форме
     ui->setupUi(this);
     begin();
     // Устанавливаем соединения сигналов и слотов (кнопок и методов)
-    connect(ui->exitButton,SIGNAL(clicked(bool)),
+    connect(ui->exitButton,SIGNAL(clicked()),
             this,SLOT(close()));
-    connect(ui->nextButton,SIGNAL(clicked(bool)),
+    connect(ui->nextButton,SIGNAL(clicked()),
             this,SLOT(begin()));
-    connect(ui->inputEdit,SIGNAL(returnPressed()),
-            this,SLOT(calc()));
     connect(ui->inputEdit, SIGNAL(editingFinished()), this, SLOT(calc()));
 }
 

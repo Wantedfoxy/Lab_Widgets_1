@@ -2,7 +2,6 @@
 #define WIDGET_H
 // Подключаем основные библиотеки
 #include <QWidget>
-#include <QValidator>
 #include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
